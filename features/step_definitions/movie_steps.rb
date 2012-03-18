@@ -18,7 +18,6 @@ MORE_MOVIES.each do |movie|
   Movie.create!(movie)
 end
 
-
 Given /the following movies exist/ do |movies_table|
   movies_table.hashes.each do |movie|
     assert false, "missing #{movie}" if Movie.find_by_title(movie[:title]).nil?
@@ -34,12 +33,34 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   assert false, "Unimplmemented"
 end
 
-# Make it easier to express checking or unchecking several boxes at once
-#  "When I uncheck the following ratings: PG, G, R"
-#  "When I check the following ratings: G"
-
 When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
-  # HINT: use String#split to split up the rating_list, then
-  #   iterate over the ratings and reuse the "When I check..." or
-  #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
+  list = rating_list.split(",")
+  uncheck.nil? ? list.each {|field| check("ratings[#{field.strip}]") } : list.each {|field| uncheck("ratings[#{field.strip}]")}
 end
+
+When /I press (.*)/ do |button|
+  click_button(button)
+end
+
+Then /I should( not)? see: (.*)/ do |onpage, movie_list|
+  movie_list.split(",").each do |title|
+    if onpage.nil? then
+      if page.respond_to? :should
+        page.should have_content(title), "missing movie " + title
+      else
+        assert page.has_content?(title), "missing movie " + title
+      end 
+    else
+      if page.respond_to? :should_not
+        page.should_not have_content(title), "this movies should be here " + title
+      else
+        assert_equal false, page.has_content?(title), "this movies should be here " + title
+      end
+    end
+  end
+end
+
+Then /I should see( all)? of the movies/ do |number|
+  assert all("tr").count.eql?(MORE_MOVIES.count + 1), "Not all movies appear" if number.eql?("all")
+end
+
