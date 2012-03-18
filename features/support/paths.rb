@@ -16,6 +16,9 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/'
 
+    when /^the RottenPotatoes home page/
+      '/movies'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
@@ -23,6 +26,7 @@ module NavigationHelpers
     #     user_profile_path(User.find_by_login($1))
 
     else
+      puts "please map " + page_name
       begin
         page_name =~ /^the (.*) page$/
         path_components = $1.split(/\s+/)
