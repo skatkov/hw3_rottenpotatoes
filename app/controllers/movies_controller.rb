@@ -51,6 +51,10 @@ class MoviesController < ApplicationController
     redirect_to movie_path(@movie)
   end
 
+  def find_by_director
+    @movies = Movie.all
+  end
+
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
