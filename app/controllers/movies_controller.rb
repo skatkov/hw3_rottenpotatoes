@@ -6,6 +6,10 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
+  def same_director
+    @movies = Movie.find_all_by_director(params[:director])
+  end
+
   def index
     sort = params[:sort] || session[:sort]
     case sort
@@ -49,10 +53,6 @@ class MoviesController < ApplicationController
     @movie.update_attributes!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully updated."
     redirect_to movie_path(@movie)
-  end
-
-  def find_by_director
-    @movies = Movie.all
   end
 
   def destroy
