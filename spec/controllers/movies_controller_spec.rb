@@ -30,9 +30,15 @@ describe MoviesController do
 			assigns(:movies).should  == @fake_result
 		end
 
-		it 'should find appropriate data from database' do			
+		it 'should return correct number of records from DB' do			
 			post :same_director, {:director => 'Ridley Scott'}
-			assigns(:movies).count.should == 1
+			assigns(:movies).count.should == 2
+		end
+
+		it 'should show flash if director is missing' do
+			Movie.stub(:find_all_by_director).and_return(@fake_results)
+			post :same_director, {:director => "Alfred Hitchcock"}
+			flash[:notice].should == "no director info" 
 		end
 	end
 end

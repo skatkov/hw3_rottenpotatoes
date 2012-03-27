@@ -1,4 +1,5 @@
 require 'logger'
+require "movie.rb"
 log = Logger.new("steps.log")
 
 MORE_MOVIES = [
@@ -12,6 +13,10 @@ MORE_MOVIES = [
   {:title => 'The Incredibles', :rating => 'PG', :release_date => '5-Nov-2004'},
   {:title => 'Raiders of the Lost Ark', :rating => 'PG', :release_date => '12-Jun-1981'},
   {:title => 'Chicken Run', :rating => 'G', :release_date => '21-Jun-2000'},
+  {:title => 'Star Wars', :rating => 'PG', :director => 'George Lucas', :release_date => '1977-05-25'},
+  {:title => 'Blade Runner', :rating => 'PG', :director => 'Ridley Scott', :release_date => '1982-06-25'},
+  {:title => 'Alien', :rating => 'R', :director => '', :release_date => '1979-05-25'},  
+  {:title => 'THX-1138', :rating => 'R', :director => 'George Lucas', :release_date => '1971-03-11'},
 ]
 
 MORE_MOVIES.each do |movie|
@@ -63,4 +68,3 @@ end
 Then /I should see( all)? of the movies/ do |number|
   assert all("tr").count.eql?(MORE_MOVIES.count + 1), "Not all movies appear" if number.eql?("all")
 end
-

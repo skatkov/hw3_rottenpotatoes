@@ -7,7 +7,12 @@ class MoviesController < ApplicationController
   end
 
   def same_director
-    @movies = Movie.find_all_by_director(params[:director])
+    if params[:director].eql?("null") then
+      flash[:notice] = "no director info"
+      redirect_to movies_path
+    else
+      @movies = Movie.find_all_by_director(params[:director])
+    end
   end
 
   def index
