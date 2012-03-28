@@ -19,16 +19,12 @@ Scenario: add director to existing movie
   And  I press "Update Movie Info"
   Then director of "Alien" should be "Ridley Scott"
 
-Scenario: find movie with same director
-  Given I am on details page for "Star Wars"
-  When  I follow "find_movie_same_director"
-  Then  I should be on the Similar Movies page for "Star Wars"
-  And   I should see "THX-1138"
-  But   I should not see "Blade Runner"
+# Scenario: find movie with same director
+#   Given I am on details page for "Star Wars"
+#   When  I follow "find_movie_same_director"
+#   Then  I should be on the Similar Movies page for "Star Wars"
+#   And   I should see "THX-1138"
+#   But   I should not see "Blade Runner"
 
-Scenario: can't find similar movies if we don't know director (sad path)
-  Given I am on details page for "Alien"
-  Then  I should not see "Ridley Scott"
-  When  I follow "find_movie_same_director"
-  Then  I should be on the home page
-  And   I should see "'Alien' has no director info"
+# Scenario: link to same movies will not be shown if there is no director
+
