@@ -25,17 +25,17 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   
   When I check the following ratings: PG, R
   When I uncheck the following ratings: PG-13, G, NC-17
-  When I press Refresh
+  When I press "Refresh"
   Then I should see: The Terminator, When Harry Met Sally, Amelie, The Incredibles, Raiders of the Lost Ark
   Then I should not see: Aladdin, The Help, Chocolat, 2001: A Space Odyssey, Chicken Run
 
 Scenario: no ratings selected
   When I uncheck the following ratings: PG-13, G, NC-17, PG, R
-  When I press Refresh
+  When I press "Refresh"
   Then I should not see: Aladdin, The Help, Chocolat, 2001: A Space Odyssey, Chicken Run, The Terminator, When Harry Met Sally, Amelie, The Incredibles, Raiders of the Lost Ark 
 
 Scenario: all ratings selected
   When I check the following ratings: PG-13, G, NC-17, PG, R
-  When I press Refresh
+  When I press "Refresh"
   Then I should see all of the movies
  

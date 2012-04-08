@@ -43,7 +43,7 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   uncheck.nil? ? list.each {|field| check("ratings[#{field.strip}]") } : list.each {|field| uncheck("ratings[#{field.strip}]")}
 end
 
-When /I press (.*)/ do |button|
+When /I press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
@@ -63,6 +63,10 @@ Then /I should( not)? see: (.*)/ do |onpage, movie_list|
       end
     end
   end
+end
+
+Then /director of "(.*)" should be "(.*)"/ do |movie, director|
+  assert Movie.find_by_title(movie).director.should == director, "The director of #{movie} it is not #{director}"
 end
 
 Then /I should see( all)? of the movies/ do |number|
